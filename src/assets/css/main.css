@@ -1,0 +1,14 @@
+.router-link-active{
+  color: #fff!important;
+  font-weight: bold;
+}
+
+.home.router-link-active{
+  color: rgba(255,255,255,.85)!important;
+  font-weight: normal;
+}
+
+.home.router-link-active.router-link-exact-active{
+  color: #fff!important;
+  font-weight: bold;
+}
