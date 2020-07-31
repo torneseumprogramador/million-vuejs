@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <AppHeader></AppHeader>
-    <router-view></router-view>
-    <AppFooter></AppFooter>
+  <AppHeader></AppHeader>   
+  <router-view></router-view>
+  <AppFooter></AppFooter>
+
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import AppFooter from "./components/app-footer.vue"
 import AppHeader from "./components/app-header.vue"
 import "./assets/css/main.css"
+
 
 export default {
   name: 'App',
@@ -19,3 +21,6 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+</style>
