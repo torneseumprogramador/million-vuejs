@@ -51,26 +51,18 @@
         <table class="table table-bordered table-sm">
             <thead>
               <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
+                <th>Codigo</th>
+                <th>Nome</th>
+                <th>Taxa de juros</th>
+                <th>Tipo</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-              </tr>
-              <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-              </tr>
-              <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
+              <tr v-for="acao in acoes" v-bind:key="acao.id">
+                <td>{{acao.cod_empresa}}</td>
+                <td>{{acao.nome_empresa}}</td>
+                <td>{{acao.taxa_juros}}%</td>
+                <td>{{acao.tipo}}</td>
               </tr>
             </tbody>
           </table>      
@@ -80,3 +72,30 @@
   </div>
 </main> 
 </template>
+<script>
+import axios from 'axios';
+export default {
+  name: "Acoes",
+  data: () => {
+    return {
+      robson: "Mandou muito bem",
+      acoes: []
+    }
+  },
+  methods: {
+    lista(){
+      axios.create({
+        baseURL: 'http://localhost:3000/acoes.json',
+        headers: {'token': '123456'}
+      }).get().then((res) => {
+        this.acoes = res.data
+      })
+      //axios.get(`http://localhost:3000/acoes.json`)
+    }
+  },
+  created(){
+    this.lista();
+  }
+}
+</script>
+
