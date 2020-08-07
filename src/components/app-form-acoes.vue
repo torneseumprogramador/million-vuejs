@@ -48,17 +48,20 @@
         </p>
           <form method="" action="">
             <label>Código</label>
-            <input class="form-control" id="codigo" type="text"/>
+            <input class="form-control" v-model="acao.cod_empresa" id="codigo" type="text"/>
             <label>Nome</label>
-            <input class="form-control" id="nome" type="text"/>
+            <input class="form-control" v-model="acao.nome_empresa" id="nome" type="text"/>
             <label>Taxa</label>
-            <input class="form-control" type="number" id="taxa"/>
+            <input class="form-control" v-model="acao.taxa_juros" type="number" id="taxa"/>
             <label>Tipo</label>
-            <select class="form-control" id="tipo">
+            <select class="form-control" v-model="acao.tipo" id="tipo">
               <option value="ON">ON</option>
               <option value="PN">PN</option>
             </select>
             <br/>
+            <div v-if="erro" class="alert alert-danger">
+              {{erro}}
+            </div>
             <button type="button" v-on:click="salvar()" class="btn btn-success" >Salvar</button>&nbsp; &nbsp; 
             <router-link to="/acoes" tag="button" class="btn btn-danger" >Voltar</router-link>
           </form>
@@ -75,31 +78,26 @@ import axios from 'axios';
 export default {
   data: () => {
     return {
+      erro: "",
       acao: {
-        
+        nome_empresa: "",
+        cod_empresa: "",
+        taxa_juros: "",
+        tipo: ""
       }
     }
   },
   methods: {
     salvar(){
-      const nome = document.getElementById("nome").value
-      const codigo = document.getElementById("codigo").value
-      const taxa = document.getElementById("taxa").value
-      const tipo = document.getElementById("tipo").value
-
-      let payload = {
-        nome_empresa: nome,
-        cod_empresa: codigo,
-        taxa_juros: taxa,
-        tipo: tipo
-      }
-
-      axios.post('http://localhost:3000/acoes.json', payload, {
+      axios.post('http://localhost:3000/acoes.json', this.acao, {
         headers: {'token': '123456'}
       }).then(() => {
         //window.location.href = "/acoes"
         //history.go(-1)
         this.$router.push('/acoes');
+      })
+      .catch((err) => {
+        this.erro = JSON.stringify(err)
       })
     }
   }
