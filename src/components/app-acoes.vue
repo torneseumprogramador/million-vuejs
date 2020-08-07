@@ -49,7 +49,7 @@
 	
       </div>
         <table class="table table-bordered table-sm">
-            <thead>
+            <thead> 
               <tr>
                 <th>Codigo</th>
                 <th>Nome</th>
@@ -94,6 +94,7 @@ export default {
     }
   },
   created(){
+    window.scrollTo(500, 0);
     this.lista();
   }
 }

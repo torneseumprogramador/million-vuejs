@@ -47,20 +47,62 @@
         <p class="lead mb-4">
         </p>
           <form method="" action="">
-            <label > Firstname</label>
-            <input class="form-control" type="text"/>
-            <label > Lastname</label>
-            <input class="form-control" type="text"/>
-            <label > Email</label>
-            <input class="form-control" type="text"/>
+            <label>Código</label>
+            <input class="form-control" id="codigo" type="text"/>
+            <label>Nome</label>
+            <input class="form-control" id="nome" type="text"/>
+            <label>Taxa</label>
+            <input class="form-control" type="number" id="taxa"/>
+            <label>Tipo</label>
+            <select class="form-control" id="tipo">
+              <option value="ON">ON</option>
+              <option value="PN">PN</option>
+            </select>
             <br/>
-            <router-link to="/acoes" tag="button" class="btn btn-success" >Salvar</router-link>&nbsp; &nbsp; 
+            <button type="button" v-on:click="salvar()" class="btn btn-success" >Salvar</button>&nbsp; &nbsp; 
             <router-link to="/acoes" tag="button" class="btn btn-danger" >Voltar</router-link>
-            
           </form>
       </div>
     </div>
-    
   </div>
 </main> 
 </template>
+
+
+<script>
+import axios from 'axios';
+
+export default {
+  data: () => {
+    return {
+      acao: {
+        
+      }
+    }
+  },
+  methods: {
+    salvar(){
+      const nome = document.getElementById("nome").value
+      const codigo = document.getElementById("codigo").value
+      const taxa = document.getElementById("taxa").value
+      const tipo = document.getElementById("tipo").value
+
+      let payload = {
+        nome_empresa: nome,
+        cod_empresa: codigo,
+        taxa_juros: taxa,
+        tipo: tipo
+      }
+
+      axios.post('http://localhost:3000/acoes.json', payload, {
+        headers: {'token': '123456'}
+      }).then(() => {
+        //window.location.href = "/acoes"
+        //history.go(-1)
+        this.$router.push('/acoes');
+      })
+    }
+  }
+}
+</script>
+
