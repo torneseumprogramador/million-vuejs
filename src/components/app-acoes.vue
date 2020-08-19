@@ -55,6 +55,7 @@
                 <th>Nome</th>
                 <th>Taxa de juros</th>
                 <th>Tipo</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -63,6 +64,10 @@
                 <td>{{acao.nome_empresa}}</td>
                 <td>{{acao.taxa_juros}}%</td>
                 <td>{{acao.tipo}}</td>
+                <td>
+                  <button v-on:click="editar(acao)" class="btn btn-lg btn-bd-primary mb-3 mr-md-3">Editar</button>
+                  <!--router-link :to="{ path: `/acoes/${acao._id}` }" tag="button" class="btn btn-lg btn-bd-primary mb-3 mr-md-3" >Editar</router-link-->
+                </td>
               </tr>
             </tbody>
           </table>      
@@ -83,6 +88,9 @@ export default {
     }
   },
   methods: {
+    editar(acao){
+      this.$router.push(`/acoes/${acao._id}`);
+    },
     lista(){
       axios.create({
         baseURL: 'http://localhost:3000/acoes.json',

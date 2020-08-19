@@ -89,17 +89,39 @@ export default {
   },
   methods: {
     salvar(){
-      axios.post('http://localhost:3000/acoes.json', this.acao, {
-        headers: {'token': '123456'}
-      }).then(() => {
-        //window.location.href = "/acoes"
-        //history.go(-1)
-        this.$router.push('/acoes');
-      })
-      .catch((err) => {
-        this.erro = JSON.stringify(err)
-      })
+      if(!this.acao._id){
+        axios.post('http://localhost:3000/acoes.json', this.acao, {
+          headers: {'token': '123456'}
+        }).then(() => {
+          this.$router.push('/acoes');
+        })
+        .catch((err) => {
+          this.erro = JSON.stringify(err)
+        })
+      }
+      else{
+        axios.put(`http://localhost:3000/acoes/${this.acao._id}.json`, this.acao, {
+          headers: {'token': '123456'}
+        }).then(() => {
+          this.$router.push('/acoes');
+        })
+        .catch((err) => {
+          this.erro = JSON.stringify(err)
+        })
+      }
     }
+  },
+  created(){
+    window.scrollTo(500, 0);
+    let id = this.$route.params.id
+    axios.get(`http://localhost:3000/acoes/${id}.json`, {
+      headers: {'token': '123456'}
+    }).then((res) => {
+      this.acao = res.data
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 }
 </script>

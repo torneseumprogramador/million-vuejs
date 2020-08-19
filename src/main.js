@@ -24,6 +24,7 @@ const routes =[
   {path:"/fundos/novo", component: AppFormFundos},
   {path:"/acoes", component: AppAcoes},
   {path:"/acoes/novo", component: AppFormAcoes},
+  {path:"/acoes/:id", component: AppFormAcoes},
 ]
 
 const router = new VueRouter({
