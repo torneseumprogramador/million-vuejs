@@ -56,6 +56,7 @@
                 <th>Taxa de juros</th>
                 <th>Tipo</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -67,6 +68,9 @@
                 <td>
                   <button v-on:click="editar(acao)" class="btn btn-lg btn-bd-primary mb-3 mr-md-3">Editar</button>
                   <!--router-link :to="{ path: `/acoes/${acao._id}` }" tag="button" class="btn btn-lg btn-bd-primary mb-3 mr-md-3" >Editar</router-link-->
+                </td>
+                <td>
+                  <button v-on:click="excluir(acao)" class="btn btn-lg btn-danger mb-3 mr-md-3">Excluir</button>
                 </td>
               </tr>
             </tbody>
@@ -90,6 +94,16 @@ export default {
   methods: {
     editar(acao){
       this.$router.push(`/acoes/${acao._id}`);
+    },
+    excluir(acao){
+      if(confirm("Deseja realmente excluir ?")){
+        axios.create({
+          baseURL: `http://localhost:3000/acoes/${acao._id}.json`,
+          headers: {'token': '123456'}
+        }).delete().then(() => {
+          this.lista()
+        })
+      }
     },
     lista(){
       axios.create({
